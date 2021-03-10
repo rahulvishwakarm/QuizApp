@@ -1,9 +1,10 @@
-import '../src/css/app.css'
+import '../src/css/app.css';
+import Quiz from '../src/components/Quiz';
 
 function App() {
   return (
     <div className="App">
-      Quiz
+        <Quiz/>
     </div>
   );
 }
