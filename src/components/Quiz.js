@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import QuestionBox from '../components/QuestionBox';
 import AnswerBox from '../components/AnswerBox';
-import questionAPI from '../components/Questions/Question_API';
+import Question_API from '../components/Questions/Question_API';
+import '../css/style.css';
 
 class Quiz extends Component {
-
     constructor(){
         super();
         this.state = {
@@ -15,10 +15,11 @@ class Quiz extends Component {
     }
 
     getQuestions = () =>{
-        questionAPI().then(question => {
+        Question_API().then(question => {
             this.setState({
                 questionBank:question
             });
+            console.log(question)
         });
     }
 
@@ -41,29 +42,29 @@ class Quiz extends Component {
         });
     };
 
-    conponentDidMount(){
+    componentDidMount(){
         this.getQuestions();
     }
 
     render() {
         return (
             <div className="container">
-                <div className="title">QuizOn</div>
+                <div className="title">Quiz</div>
                 {
                     this.state.questionBank.length>0 &&
                     this.state.responses<5 &&
                     this.state.questionBank.map(
                         ({question,answers,correct,questionId}) => <QuestionBox
                                                                     question={question}
-                                                                    option={answers}
+                                                                    options={answers}
                                                                     key={questionId}
                                                                     selected={answer => this.computeAnswer(answer,correct)}
                                                                     />
                                                 )
                 }
-
+                
                 {
-                    //  condition ? True : False 
+                    //  condition ? True : False
                     this.state.responses ===5 ? (<AnswerBox score={this.state.score} playAgain={this.playAgain}/>) : null
                 }
             </div>
